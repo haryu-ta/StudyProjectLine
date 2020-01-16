@@ -66,7 +66,7 @@ class APIController() {
     /**
      * 都道府県の路線情報をDBに格納する
      */
-    @PutMapping(value= ["/api/regist/{prefucture_code}"])
+    @PutMapping(value= ["/api/p/{prefucture_code}"])
     @ResponseStatus(HttpStatus.CREATED)
     fun registPrefucture(@PathVariable("prefucture_code") prefucture_code : String) : Unit {
         var nos : Int
