@@ -4,7 +4,7 @@ import co.jp.itamura.StudyProject.controller.APIController
 import co.jp.itamura.StudyProject.dto.Line
 import co.jp.itamura.StudyProject.dto.Lines
 import co.jp.itamura.StrudyProject.service.FileReadService
-import co.jp.itamura.StudyProject.constans.FILEPATH
+import co.jp.itamura.StudyProject.constans.P_FILEPATH
 import org.apache.logging.log4j.LogManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.io.Resource
@@ -37,7 +37,7 @@ class FileReadServiceImpl : FileReadService {
         var line : String = ""
         // ファイルの取得
         val resource: Resource = //resourceLoader.getResource("classpath:file/${no}.json")
-                resourceLoader.getResource("file:${FILEPATH}${no}.json")
+                resourceLoader.getResource("file:${P_FILEPATH}${no}.json")
         val bf : BufferedReader = BufferedReader(FileReader(resource.file))
         bf.use{
             line = it.readLine()

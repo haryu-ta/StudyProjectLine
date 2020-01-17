@@ -76,10 +76,23 @@ class APIController() {
             nos = 0
         }
         if( nos >= 1 && nos <= 47) {
-            return regService.regist(nos)
+            return regService.registPrefucture(nos)
         }
 
         return
+    }
+
+    /**
+     * 各情報をDBに格納する
+     *
+     * @shori_kbn  p:都道府県 l:路線 s:駅 g:グループ j:隣駅
+     */
+    @PutMapping(value= ["/api/{shori_kbn}"])
+    @ResponseStatus(HttpStatus.CREATED)
+    fun registLine(@PathVariable("shori_kbn") kbn : String) : Unit {
+
+        return regService.regist(kbn)
+
     }
 
 }
