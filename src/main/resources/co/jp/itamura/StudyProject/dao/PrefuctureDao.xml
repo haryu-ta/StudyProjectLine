@@ -16,4 +16,18 @@
             #{json}
         )
     </insert>
+
+    <insert id="upsert" parameterType="co.jp.itamura.StudyProject.entity.AnyEntity">
+        INSERT INTO
+        PREFUCTURE
+        (
+        ID,
+        JSON
+        )
+        VALUES
+        (
+        #{id},
+        #{json}
+        )
+    </insert>
 </mapper>

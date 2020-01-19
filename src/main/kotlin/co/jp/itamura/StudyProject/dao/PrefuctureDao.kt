@@ -4,7 +4,7 @@ import co.jp.itamura.StudyProject.entity.PrefuctureEntity
 import org.apache.ibatis.annotations.Mapper
 
 @Mapper
-interface PrefuctureDao {
+interface PrefuctureDao : AllDao {
 
     fun upsertPrefucture(entity : PrefuctureEntity)
 

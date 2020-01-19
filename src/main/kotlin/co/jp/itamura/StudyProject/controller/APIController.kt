@@ -64,28 +64,10 @@ class APIController() {
     }
 
     /**
-     * 都道府県の路線情報をDBに格納する
-     */
-    @PutMapping(value= ["/api/p/{prefucture_code}"])
-    @ResponseStatus(HttpStatus.CREATED)
-    fun registPrefucture(@PathVariable("prefucture_code") prefucture_code : String) : Unit {
-        var nos : Int
-        try{
-            nos = prefucture_code?.toInt() ?: 0
-        }catch(e : NumberFormatException){
-            nos = 0
-        }
-        if( nos >= 1 && nos <= 47) {
-            return regService.registPrefucture(nos)
-        }
-
-        return
-    }
-
-    /**
      * 各情報をDBに格納する
      *
-     * @shori_kbn  p:都道府県 l:路線 s:駅 g:グループ j:隣駅
+     * @param shori_kbn  p:都道府県 l:路線 s:駅 g:グループ j:隣駅
+     * URL : /api/x
      */
     @PutMapping(value= ["/api/{shori_kbn}"])
     @ResponseStatus(HttpStatus.CREATED)
@@ -94,5 +76,24 @@ class APIController() {
         return regService.regist(kbn)
 
     }
+
+//    /**
+//     * 都道府県の路線情報をDBに格納する
+//     */
+//    @PutMapping(value= ["/api/p/{prefucture_code}"])
+//    @ResponseStatus(HttpStatus.CREATED)
+//    fun registPrefucture(@PathVariable("prefucture_code") prefucture_code : String) : Unit {
+//        var nos : Int
+//        try{
+//            nos = prefucture_code?.toInt() ?: 0
+//        }catch(e : NumberFormatException){
+//            nos = 0
+//        }
+//        if( nos >= 1 && nos <= 47) {
+//            return regService.registPrefucture(nos)
+//        }
+//
+//        return
+//    }
 
 }

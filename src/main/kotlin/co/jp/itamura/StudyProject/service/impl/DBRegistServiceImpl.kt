@@ -2,8 +2,11 @@ package co.jp.itamura.StudyProject.service.impl
 
 import co.jp.itamura.StudyProject.constans.*
 import co.jp.itamura.StudyProject.controller.APIController
+import co.jp.itamura.StudyProject.dao.AllDao
+import co.jp.itamura.StudyProject.dao.LineDao
 import co.jp.itamura.StudyProject.dao.PrefuctureDao
 import co.jp.itamura.StudyProject.entity.AnyEntity
+import co.jp.itamura.StudyProject.entity.LineEntity
 import co.jp.itamura.StudyProject.entity.PrefuctureEntity
 import co.jp.itamura.StudyProject.service.DBRegistService
 import org.apache.logging.log4j.LogManager
@@ -23,6 +26,9 @@ class DBRegistServiceImpl : DBRegistService {
 
     @Autowired
     lateinit private var prefuctureDao : PrefuctureDao
+
+    @Autowired
+    lateinit private var lineDao : LineDao
 
     companion object {
         private val logger = LogManager.getLogger(DBRegistServiceImpl::class.java)
@@ -50,20 +56,39 @@ class DBRegistServiceImpl : DBRegistService {
     override fun regist(kbn : String) {
 
         var filepath : String = ""
+        var dao : AllDao
+
+        // INSERTを行う共通関数
+        val func : (AllDao,AnyEntity) -> Unit = {
+            dao, entity ->  dao.upsert(entity)
+        }
 
         when(kbn){
-            "p" -> filepath = P_FILEPATH
-            "l" -> filepath = L_FILEPATH
-            "s" -> filepath = S_FILEPATH
-            "g" -> filepath = G_FILEPATH
-            "j" -> filepath = J_FILEPATH
+            "p" -> {
+                filepath = P_FILEPATH
+                dao = prefuctureDao
+            }
+            "l" -> {
+                filepath = L_FILEPATH
+                dao = lineDao
+            }
+            "s" -> {
+                filepath = S_FILEPATH
+                dao = lineDao
+            }
+            "g" -> {
+                filepath = G_FILEPATH
+                dao = lineDao
+            }
+            "j" ->{
+                filepath = J_FILEPATH
+                dao = lineDao
+            }
             else -> {
                 logger.info("============ 処理対象なし ============")
                 return
             }
         }
-
-        var func = { prefuctureDao.upsertPrefucture(PrefuctureEntity(1,"")) }
 
         val resource: Resource = resourceLoader.getResource("file:${filepath}")
 
@@ -82,7 +107,7 @@ class DBRegistServiceImpl : DBRegistService {
                 }
 
                 logger.info("${no} -> ${line}")
-                //AnyEntity(no,line)
+                func(dao,AnyEntity(no,line))
 
             }
         }
