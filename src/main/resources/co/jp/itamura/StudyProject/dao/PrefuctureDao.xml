@@ -3,7 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="co.jp.itamura.StudyProject.dao.PrefuctureDao">
 
-    <insert id="upsertPrefucture" parameterType="co.jp.itamura.StudyProject.entity.PrefuctureEntity">
+    <insert id="upsertPrefucture"
+            parameterType="co.jp.itamura.StudyProject.entity.PrefuctureEntity">
+        INSERT INTO
+            PREFUCTURE
+        (
+            ID,
+            JSON
+        )
+            VALUES
+        (
+            #{id},
+            #{json}
+        )
+    </insert>
+
+    <insert id="upsert" parameterType="co.jp.itamura.StudyProject.entity.AnyEntity">
         INSERT INTO
             PREFUCTURE
         (
@@ -17,17 +32,14 @@
         )
     </insert>
 
-    <insert id="upsert" parameterType="co.jp.itamura.StudyProject.entity.AnyEntity">
-        INSERT INTO
-        PREFUCTURE
-        (
-        ID,
-        JSON
-        )
-        VALUES
-        (
-        #{id},
-        #{json}
-        )
-    </insert>
+    <select id="select" parameterType="co.jp.itamura.StudyProject.entity.SarchConditionEntity"
+            resultType="co.jp.itamura.StudyProject.entity.AnyEntity">
+        SELECT
+            id,
+            json
+        FROM
+            PREFUCTURE
+        WHERE
+            id = #{id}
+    </select>
 </mapper>

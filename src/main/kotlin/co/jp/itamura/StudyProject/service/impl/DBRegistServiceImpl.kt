@@ -2,9 +2,7 @@ package co.jp.itamura.StudyProject.service.impl
 
 import co.jp.itamura.StudyProject.constans.*
 import co.jp.itamura.StudyProject.controller.APIController
-import co.jp.itamura.StudyProject.dao.AllDao
-import co.jp.itamura.StudyProject.dao.LineDao
-import co.jp.itamura.StudyProject.dao.PrefuctureDao
+import co.jp.itamura.StudyProject.dao.*
 import co.jp.itamura.StudyProject.entity.AnyEntity
 import co.jp.itamura.StudyProject.entity.LineEntity
 import co.jp.itamura.StudyProject.entity.PrefuctureEntity
@@ -29,6 +27,15 @@ class DBRegistServiceImpl : DBRegistService {
 
     @Autowired
     lateinit private var lineDao : LineDao
+
+    @Autowired
+    lateinit private var stationDao : StationDao
+
+    @Autowired
+    lateinit private var stationJoinDao: StationJoinDao
+
+    @Autowired
+    lateinit private var groupDao: GroupDao
 
     companion object {
         private val logger = LogManager.getLogger(DBRegistServiceImpl::class.java)
@@ -74,15 +81,15 @@ class DBRegistServiceImpl : DBRegistService {
             }
             "s" -> {
                 filepath = S_FILEPATH
-                dao = lineDao
+                dao = stationDao
             }
             "g" -> {
                 filepath = G_FILEPATH
-                dao = lineDao
+                dao = groupDao
             }
             "j" ->{
                 filepath = J_FILEPATH
-                dao = lineDao
+                dao = stationJoinDao
             }
             else -> {
                 logger.info("============ 処理対象なし ============")
