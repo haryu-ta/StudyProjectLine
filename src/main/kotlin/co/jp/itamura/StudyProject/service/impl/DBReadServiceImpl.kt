@@ -75,9 +75,10 @@ class DBReadServiceImpl : DBReadService {
             }
         }
 
-       val result : AnyEntity? = func(dao,SarchConditionEntity(no))
+        logger.info(no)
+        val result : AnyEntity? = func(dao,SarchConditionEntity(no.toInt()))
 
-        return result?.json
+        return result?.json ?: "{}"
     }
 
 }

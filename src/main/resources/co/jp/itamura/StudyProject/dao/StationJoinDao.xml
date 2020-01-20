@@ -16,4 +16,15 @@
             #{json}
         )
     </insert>
+
+    <select id="select" parameterType="co.jp.itamura.StudyProject.entity.SarchConditionEntity"
+            resultType="co.jp.itamura.StudyProject.entity.AnyEntity">
+        SELECT
+            id,
+            json
+        FROM
+            STATION_JOIN
+        WHERE
+            id = #{id}
+    </select>
 </mapper>
