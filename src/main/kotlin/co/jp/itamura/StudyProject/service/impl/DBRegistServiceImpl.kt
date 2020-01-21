@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service
 import java.io.BufferedReader
 import java.io.FileReader
 import jdk.nashorn.internal.codegen.CompilerConstants.className
-
+import kotlin.reflect.KType
 
 
 @Service
@@ -67,6 +67,7 @@ class DBRegistServiceImpl : DBRegistService {
 
         var filepath : String = ""
         var dao : AllDao
+        //val clazz : Class<*>
 
         // INSERTを行う共通関数
         val func : (AllDao,AnyEntity) -> Unit = {
@@ -77,10 +78,12 @@ class DBRegistServiceImpl : DBRegistService {
             "p" -> {
                 filepath = P_FILEPATH
                 dao = prefuctureDao
+                //clazz = Class.forName("co.jp.itamura.StudyProject.entity.PrefuctureEntity")
             }
             "l" -> {
                 filepath = L_FILEPATH
                 dao = lineDao
+                //clazz = Class.forName("co.jp.itamura.StudyProject.entity.LineEntity")
             }
             "s" -> {
                 filepath = S_FILEPATH
@@ -103,7 +106,7 @@ class DBRegistServiceImpl : DBRegistService {
         val resource: Resource = resourceLoader.getResource("file:${filepath}")
 
         //val clazz = Class.forName(className)
-        //val service = clazz.newInstance()え as Service
+        //val service = clazz.newInstance() as Service
 
         // 指定ディレクトリにファイルが存在しない場合には処理を抜ける
         if( resource.file.listFiles() != null  ) {
@@ -121,6 +124,7 @@ class DBRegistServiceImpl : DBRegistService {
 
                 logger.info("${no} -> ${line}")
                 func(dao,AnyEntity(no,line))
+                //func(dao,clazz.getConstructor(Int::class.java,String::class.java).newInstance(no,line) as LineEntity)
 
             }
         }
