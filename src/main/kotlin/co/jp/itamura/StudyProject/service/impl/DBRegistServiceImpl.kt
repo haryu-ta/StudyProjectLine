@@ -103,7 +103,7 @@ class DBRegistServiceImpl : DBRegistService {
         val resource: Resource = resourceLoader.getResource("file:${filepath}")
 
         //val clazz = Class.forName(className)
-        //val service = clazz.newInstance()え as Service
+        //val service = clazz.newInstance() as Service
 
         // 指定ディレクトリにファイルが存在しない場合には処理を抜ける
         if( resource.file.listFiles() != null  ) {
